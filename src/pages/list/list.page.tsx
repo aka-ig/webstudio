@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import { ComponentHeader } from '../../components';
@@ -6,6 +7,7 @@ import { IProjectInfo } from '../../interfaces';
 
 export function PageList() {
 
+  const history = useHistory();
   const [filePath, setFilePath] = useState<string>('/');
   const [projectList, setProjectList] = useState<IProjectInfo[]>([]);
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -13,8 +15,8 @@ export function PageList() {
   useEffect(() => {
     // TODO: ajax call to get project list according to file path
     setProjectList([
-      { name: 'Project One', author: 'system', filePath: '/', created: new Date(), updated: new Date },
-      { name: 'Project Two', author: 'system', filePath: '/', created: new Date(), updated: new Date }
+      { name: 'Project One', author: 'system', filePath: '/', created: new Date(), updated: new Date() },
+      { name: 'Project Two', author: 'system', filePath: '/', created: new Date(), updated: new Date() }
     ]);
   }, [filePath]);
 
@@ -24,9 +26,13 @@ export function PageList() {
     const nextProjectList = projectList.filter(p => p.name !== project.name);
     setProjectList(nextProjectList);
   }
+  
+  function handleRename(e: React.MouseEvent<HTMLAnchorElement>, project: IProjectInfo)  {
+    e.preventDefault();
+  }
 
-  function handleShowModal() {
-    setShowModal(true);
+  function handlePreview(e: React.MouseEvent<HTMLAnchorElement>, project: IProjectInfo)  {
+    e.preventDefault();
   }
 
   function handleHideModal() {
@@ -36,6 +42,12 @@ export function PageList() {
   function handleCreateNewProject() {
     setShowModal(true);
 
+  }
+
+  function handleProjectLinkClick(e: React.MouseEvent<HTMLAnchorElement>, project: IProjectInfo) {
+    // TODO: open project by project name/id
+    e.preventDefault();
+    history.push('/edit');
   }
 
   return (
@@ -62,12 +74,12 @@ export function PageList() {
           <tbody>
             {projectList.map((project: IProjectInfo) => (
               <tr key={project.name}>
-                <td>{project.name}</td>
+                <td><a href='/' onClick={(e) => handleProjectLinkClick(e, project)}>{project.name}</a></td>
                 <td>{project.created.toDateString()}</td>
                 <td>{project.updated.toDateString()}</td>
-                <td><a>Rename</a></td>
-                <td><a>Preview</a></td>
-                <td><a href='' onClick={(e) => handleDelete(e, project)}>Delete</a></td>
+                <td><a href='/' onClick={e => handleRename(e, project)}>Rename</a></td>
+                <td><a href='/' onClick={e => handlePreview(e, project)}>Preview</a></td>
+                <td><a href='/' onClick={(e) => handleDelete(e, project)}>Delete</a></td>
               </tr>
             ))}
           </tbody>

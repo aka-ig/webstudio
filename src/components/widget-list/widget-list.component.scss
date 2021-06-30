@@ -1,0 +1,25 @@
+.ws-component-widget-list {
+  .search-container {
+    .search-icon {
+      opacity: 0.6;
+    }
+  }
+  .widget-list-container {
+    overflow: auto;
+    height: 1px;
+    .widget-item {
+      font-size: 15px;
+      padding: 8px 5px;
+      height: 40px;
+      box-sizing: border-box;
+      transition: all 0.5s ease;
+      .widget-icon {}
+      .widget-label {
+        margin-left: 8px;
+      }
+      &:hover {
+        background-color: #e0e0e0;
+      }
+    }
+  }
+}

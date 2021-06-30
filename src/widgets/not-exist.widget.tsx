@@ -9,3 +9,14 @@ export function WidgetNotExist() {
     </div>
   )
 }
+
+
+export const WidgetNotExistBlueprint = {
+  type: 'not-exist',
+  name: 'Not Exist',
+  attrs: {},
+  forEditor: {
+    widgetInnerHTML: <div></div>
+  },
+  forCodeGen: {}
+};

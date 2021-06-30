@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { ComponentProjectTree } from '../project-tree/project-tree.component';
+import { ComponentWidgetList } from '../widget-list/widget-list.component';
 import './category.component.scss';
 
 enum TabName {
@@ -6,7 +8,7 @@ enum TabName {
   PROJECT = 'project'
 }
 
-export default function ComponentCategory() {
+export function ComponentCategory() {
 
   const [currentTabName, setCurrentTabName] = useState<TabName>(TabName.WIDGET);
 
@@ -15,23 +17,18 @@ export default function ComponentCategory() {
     setCurrentTabName(tabName);
   }
 
-  const PartialWidgets = (<div>Widgets</div>);
-  const PartialProject = (<div>Project</div>);
-
   return (
     <div className='ws-component-category flex-column'>
       <ul className='nav nav-tabs nav-justified'>
         <li className='nav-item'>
-          <a className={'nav-link' + (currentTabName === TabName.WIDGET ? ' active' : '')} href='' onClick={(e) => handleSwitchTab(e, TabName.WIDGET)}>Widget</a>
+          <a className={'nav-link' + (currentTabName === TabName.WIDGET ? ' active' : '')} href='#' onClick={(e) => handleSwitchTab(e, TabName.WIDGET)}>Widget</a>
         </li>
         <li className='nav-item'>
-          <a className={'nav-link' + (currentTabName === TabName.PROJECT ? ' active' : '')} href='' onClick={(e) => handleSwitchTab(e, TabName.PROJECT)}>Project</a>
+          <a className={'nav-link' + (currentTabName === TabName.PROJECT ? ' active' : '')} href='#' onClick={(e) => handleSwitchTab(e, TabName.PROJECT)}>Project</a>
         </li>
       </ul>
-      <div className='flex-this'>
-        {currentTabName === TabName.WIDGET && PartialWidgets}
-        {currentTabName === TabName.PROJECT && PartialProject}
-      </div>
+      {currentTabName === TabName.WIDGET && <ComponentWidgetList />}
+      {currentTabName === TabName.PROJECT && <ComponentProjectTree />}
     </div>
   )
 }

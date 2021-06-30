@@ -1,13 +1,37 @@
+@import './styles/widget.scss';
+
 .flex-row {
   display: flex;
-  flex-direction: row;
+  // flex-direction: row;
 }
 
 .flex-column {
   display: flex;
-  flex-direction: column;
+  // flex-direction: column;
 }
 
 .flex-this {
   flex-grow: 1;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #aaa;
+  border-radius: 3px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 3px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
