@@ -5,6 +5,8 @@ import { EditPageContext, IEditPageContext } from './edit.page.context';
 
 export function PageEdit() {
 
+  const [selectedWidget, setSelectedWidget] = useState<any>(null);
+
   useEffect(() => {
 
   }, []);
@@ -15,8 +17,14 @@ export function PageEdit() {
     setmode(mode);
   }
 
+  function handleSelectedWidgetChange(widget: any) {
+    setSelectedWidget(widget);
+  }
+
   const editPageContextValue: IEditPageContext = {
-    handleModeChange
+    selectedWidget,
+    handleSelectedWidgetChange,
+    handleModeChange,
   }
 
   return (

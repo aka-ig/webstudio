@@ -9,7 +9,10 @@ export const WidgetWebsiteBlueprint = {
     }
   },
   forEditor: {
-    widgetInnerHTML: <div></div>
+    widgetInnerHTML: <div></div>,
+    props: {
+      isNotDeletable: true
+    }
   },
   forCodeGen: {}
 };

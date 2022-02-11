@@ -35,3 +35,17 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+.widget {
+  border: 1px dashed #ddd;
+  &:hover {
+    box-shadow: 3px 3px 8px 0 rgba(50, 50, 50, 0.4);
+  }
+  &.selected {
+    border: 1px solid #4488ff;
+    background-color: rgba(0, 100, 255, 0.04);
+  }
+}
+.widget-inner {
+  padding: 10px;
+}

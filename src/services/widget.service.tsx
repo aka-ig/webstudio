@@ -1,40 +1,59 @@
 import { v4 as uuidv4 } from 'uuid';
 import { IWidget, IWidgetAttrs, IWidgetBlueprint } from '../interfaces';
-import { WidgetNotExist, WidgetWebsiteBlueprint, WidgetNotExistBlueprint, WidgetPageBlueprint, WidgetHrBlueprint, WidgetNavigatorBlueprint, WidgetPageholderBlueprint } from '../widgets';
+import {
+  WidgetNotExist,
+  WidgetWebsiteBlueprint,
+  WidgetNotExistBlueprint,
+  WidgetPageBlueprint,
+  WidgetHrBlueprint,
+  WidgetNavigatorBlueprint,
+  WidgetPageholderBlueprint,
+  WidgetProjectBlueprint
+} from '../widgets';
 
+export enum WidgetType {
+  PROJECT = 'project',
+  WEBSITE = 'website',
+  NAVIGATOR = 'navigator',
+  PAGEHOLDER = 'pageholder',
+  PAGE = 'page',
+  HR = 'hr',
+  HEADING = 'heading'
+}
 
-
-
-export function getWidgetByType(widgetType: string) {
+export function getWidgetByType(widgetType: WidgetType) {
   switch (widgetType) {
-    case 'heading':
+    case WidgetType.HEADING:
     default:
       return WidgetNotExist
   }
 }
 
-export function getWidgetBlueprintByType(widgetType: string): IWidgetBlueprint {
+export function getWidgetBlueprintByType(widgetType: WidgetType): IWidgetBlueprint {
   let blueprint: IWidgetBlueprint = WidgetNotExistBlueprint;
   switch (widgetType) {
-    case 'website':
+    case WidgetType.PROJECT:
+      blueprint = WidgetProjectBlueprint;
+      break;
+    case WidgetType.WEBSITE:
       blueprint = WidgetWebsiteBlueprint;
       break;
-    case 'pageholder':
+    case WidgetType.PAGEHOLDER:
       blueprint = WidgetPageholderBlueprint;
       break;
-    case 'navigator':
+    case WidgetType.NAVIGATOR:
       blueprint = WidgetNavigatorBlueprint;
       break;
-    case 'page':
+    case WidgetType.PAGE:
       blueprint = WidgetPageBlueprint;
       break;
-    case 'hr':
+    case WidgetType.HR:
       blueprint = WidgetHrBlueprint;
   }
   return blueprint;
 }
 
-export function createWidgetByType(widgetType: string): IWidget {
+export function createWidgetByType(widgetType: WidgetType): IWidget {
   const blueprint = getWidgetBlueprintByType(widgetType);
   const attrs: IWidgetAttrs = {};
   Object.keys(blueprint.attrs).forEach(attrKey => {
@@ -51,7 +70,7 @@ export function createWidgetByType(widgetType: string): IWidget {
   return widget;
 }
 
-export function renderWidget(widgetType: string) {
+export function renderWidget(widgetType: WidgetType) {
   const blueprint = getWidgetBlueprintByType(widgetType);
   return blueprint.forEditor.widgetInnerHTML;
 }

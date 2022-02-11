@@ -1,15 +1,15 @@
 import React, { useEffect, useMemo } from 'react'
-import { createWidgetByType } from '../../services/widget.service';
+import { createWidgetByType, WidgetType } from '../../services/widget.service';
 import { ComponentWidget } from '../widget/widget.component';
 
 export function ComponentCanvas() {
 
   // TODO: grab project
   const website = useMemo(() => {
-    const nextPage = createWidgetByType('page');
-    const nextNavigator = createWidgetByType('navigator');
-    const nextPageholder = createWidgetByType('pageholder');
-    const nextWebsite = createWidgetByType('website');
+    const nextPage = createWidgetByType(WidgetType.PAGE);
+    const nextNavigator = createWidgetByType(WidgetType.NAVIGATOR);
+    const nextPageholder = createWidgetByType(WidgetType.PAGEHOLDER);
+    const nextWebsite = createWidgetByType(WidgetType.WEBSITE);
     nextPageholder.children.push(nextPage);
     nextWebsite.children.push(nextNavigator);
     nextWebsite.children.push(nextPageholder);
