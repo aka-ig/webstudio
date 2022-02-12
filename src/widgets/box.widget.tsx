@@ -1,5 +1,7 @@
+import { WidgetType } from "../interfaces";
+
 export const WidgetHeadingBlueprint = {
-  type: 'box',
+  type: WidgetType.BOX,
   name: 'Box',
   attrs: {},
   forEditor: {

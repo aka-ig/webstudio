@@ -45,7 +45,14 @@
     border: 1px solid #4488ff;
     background-color: rgba(0, 100, 255, 0.04);
   }
+  &.widget-website {
+    border-left: none;
+    border-right: none;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+  }
 }
 .widget-inner {
   padding: 10px;
+  height: 100%;
 }

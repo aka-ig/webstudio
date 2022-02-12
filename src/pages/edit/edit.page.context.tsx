@@ -1,15 +1,12 @@
 import React from 'react';
-
-const noop = () => { };
+import { IWidget } from '../../interfaces';
 
 export interface IEditPageContext {
-  selectedWidget: any;
-  handleSelectedWidgetChange: (widget: any) => void;
+  project: IWidget;
+  website: IWidget;
+  selectedWidget: IWidget;
+  handleSelectedWidgetChange: (widget: IWidget) => void;
   handleModeChange: (mode: string) => void;
 }
 
-export const EditPageContext = React.createContext<IEditPageContext>({
-  selectedWidget: null,
-  handleModeChange: noop,
-  handleSelectedWidgetChange: noop
-});
+export const EditPageContext = React.createContext<IEditPageContext>(null);

@@ -1,5 +1,7 @@
+import { WidgetType } from "../interfaces";
+
 export const WidgetNavigatorBlueprint = {
-  type: 'navigator',
+  type: WidgetType.NAVIGATOR,
   name: 'Navigator',
   attrs: {},
   forEditor: {

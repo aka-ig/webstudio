@@ -1,5 +1,7 @@
+import { WidgetType } from "../interfaces";
+
 export const WidgetPageholderBlueprint = {
-  type: 'paceholder',
+  type: WidgetType.PAGEHOLDER,
   name: 'Pageholder',
   attrs: {},
   forEditor: {

@@ -1,5 +1,5 @@
-import { IWidget } from "../interfaces";
-import { createWidgetByType, WidgetType } from "./widget.service";
+import { IWidget, WidgetType } from "../interfaces";
+import { createWidgetByType } from "./widget.service";
 
 export function getProjectHashMap(projectWidget: IWidget) {
     const projectMap = new Map();

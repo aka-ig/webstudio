@@ -1,5 +1,7 @@
+import { WidgetType } from "../interfaces";
+
 export const WidgetWebsiteBlueprint = {
-  type: 'website',
+  type: WidgetType.WEBSITE,
   name: 'Website',
   attrs: {
     title: {

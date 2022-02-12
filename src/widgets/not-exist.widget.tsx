@@ -1,4 +1,4 @@
-import React from 'react'
+import { WidgetType } from '../interfaces';
 
 export function WidgetNotExist() {
   return (
@@ -10,9 +10,8 @@ export function WidgetNotExist() {
   )
 }
 
-
 export const WidgetNotExistBlueprint = {
-  type: 'not-exist',
+  type: WidgetType.NOTEXIST,
   name: 'Not Exist',
   attrs: {},
   forEditor: {

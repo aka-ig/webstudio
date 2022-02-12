@@ -1,5 +1,7 @@
+import { WidgetType } from "../interfaces";
+
 export const WidgetProjectBlueprint = {
-    type: 'project',
+    type: WidgetType.PROJECT,
     name: 'Project',
     attrs: {
     //   title: {

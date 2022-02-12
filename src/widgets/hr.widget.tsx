@@ -1,5 +1,7 @@
+import { WidgetType } from "../interfaces";
+
 export const WidgetHrBlueprint = {
-  type: 'hr',
+  type: WidgetType.HR,
   name: 'Horizontal Divider Line',
   attrs: {},
   forEditor: {

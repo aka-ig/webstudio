@@ -1,4 +1,5 @@
 import React from 'react'
+import { WidgetType } from '../interfaces';
 
 export function WidgetHeading() {
   return (
@@ -9,7 +10,7 @@ export function WidgetHeading() {
 }
 
 export const WidgetHeadingBlueprint = {
-  type: 'heading',
+  type: WidgetType.HEADING,
   name: 'Heading',
   attrs: {
     headingType: {

@@ -1,7 +1,7 @@
-import { IWidgetBlueprint } from '../interfaces';
+import { IWidgetBlueprint, WidgetType } from '../interfaces';
 
 export const WidgetPageBlueprint: IWidgetBlueprint = {
-  type: 'page',
+  type: WidgetType.PAGE,
   name: 'Page',
   attrs: {
     pageName: {

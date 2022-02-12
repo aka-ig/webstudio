@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import { IWidget, IWidgetAttrs, IWidgetBlueprint } from '../interfaces';
+import { IWidget, IWidgetAttrs, IWidgetBlueprint, WidgetType } from '../interfaces';
 import {
   WidgetNotExist,
   WidgetWebsiteBlueprint,
@@ -10,16 +10,6 @@ import {
   WidgetPageholderBlueprint,
   WidgetProjectBlueprint
 } from '../widgets';
-
-export enum WidgetType {
-  PROJECT = 'project',
-  WEBSITE = 'website',
-  NAVIGATOR = 'navigator',
-  PAGEHOLDER = 'pageholder',
-  PAGE = 'page',
-  HR = 'hr',
-  HEADING = 'heading'
-}
 
 export function getWidgetByType(widgetType: WidgetType) {
   switch (widgetType) {
