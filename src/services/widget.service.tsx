@@ -10,10 +10,13 @@ import {
   WidgetPageholderBlueprint,
   WidgetProjectBlueprint
 } from '../widgets';
+import { WidgetBoxBlueprint } from '../widgets/box.widget';
+import { WidgetHeadingTagBlueprint } from '../widgets/heading.widget';
+import { WidgetImageBlueprint } from '../widgets/image.widget';
 
 export function getWidgetByType(widgetType: WidgetType) {
   switch (widgetType) {
-    case WidgetType.HEADING:
+    case WidgetType.HEADINGTAG:
     default:
       return WidgetNotExist
   }
@@ -39,6 +42,16 @@ export function getWidgetBlueprintByType(widgetType: WidgetType): IWidgetBluepri
       break;
     case WidgetType.HR:
       blueprint = WidgetHrBlueprint;
+      break;
+    case WidgetType.HEADINGTAG:
+      blueprint = WidgetHeadingTagBlueprint;
+      break;
+    case WidgetType.BOX:
+      blueprint = WidgetBoxBlueprint;
+      break;
+    case WidgetType.IMAGE:
+      blueprint = WidgetImageBlueprint;
+      break;
   }
   return blueprint;
 }

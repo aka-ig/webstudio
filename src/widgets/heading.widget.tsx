@@ -1,30 +1,35 @@
-import React from 'react'
-import { WidgetType } from '../interfaces';
+import React, { HTMLProps } from 'react'
+import { IWidgetBlueprint, WidgetType } from '../interfaces';
 
-export function WidgetHeading() {
+interface IWidgetHeadingTag extends HTMLProps<HTMLHeadingElement> {}
+
+export function WidgetHeadingTag(props: IWidgetHeadingTag) {
   return (
-    <div className='widget widget-heading'>
-
-    </div>
+    <h1>Heading</h1>
   )
 }
 
-export const WidgetHeadingBlueprint = {
-  type: WidgetType.HEADING,
+export const WidgetHeadingTagBlueprint: IWidgetBlueprint = {
+  type: WidgetType.HEADINGTAG,
   name: 'Heading',
   attrs: {
-    headingType: {
+    headingTagType: {
       label: 'Heading Type',
       type: 'radio',
       options: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
       default: 'h1'
     },
     text: {
-      label: '',
+      label: 'Text',
       type: 'text',
       default: 'Heading Text'
     }
   },
-  forEditor: {},
+  forEditor: {
+    widgetInnerHTML: WidgetHeadingTag,
+    props: {
+      canHaveVisibleChildren: false
+    }
+  },
   forCodeGen: {}
 };

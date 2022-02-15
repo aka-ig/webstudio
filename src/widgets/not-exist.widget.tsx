@@ -1,4 +1,4 @@
-import { WidgetType } from '../interfaces';
+import { IWidgetBlueprint, WidgetType } from '../interfaces';
 
 export function WidgetNotExist() {
   return (
@@ -10,12 +10,13 @@ export function WidgetNotExist() {
   )
 }
 
-export const WidgetNotExistBlueprint = {
+export const WidgetNotExistBlueprint: IWidgetBlueprint = {
   type: WidgetType.NOTEXIST,
   name: 'Not Exist',
   attrs: {},
   forEditor: {
-    widgetInnerHTML: <div></div>
+    widgetInnerHTML: WidgetNotExist,
+    props: {}
   },
   forCodeGen: {}
 };

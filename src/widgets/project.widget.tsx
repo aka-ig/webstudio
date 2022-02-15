@@ -1,6 +1,17 @@
-import { WidgetType } from "../interfaces";
+import { HTMLProps } from 'react';
+import { IWidgetBlueprint, WidgetType } from '../interfaces';
 
-export const WidgetProjectBlueprint = {
+interface IWidgetProject extends HTMLProps<HTMLDivElement> {}
+
+export function WidgetProject(props: IWidgetProject) {
+  return (
+    <div {...props}>
+      {props.children}
+    </div> 
+  )
+}
+
+export const WidgetProjectBlueprint: IWidgetBlueprint = {
     type: WidgetType.PROJECT,
     name: 'Project',
     attrs: {
@@ -11,7 +22,8 @@ export const WidgetProjectBlueprint = {
     //   }
     },
     forEditor: {
-      widgetInnerHTML: <div></div>
+      widgetInnerHTML: WidgetProject,
+      props: {}
     },
     forCodeGen: {}
   };

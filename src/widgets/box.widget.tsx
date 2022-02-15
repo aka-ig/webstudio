@@ -1,11 +1,25 @@
-import { WidgetType } from "../interfaces";
+import { HTMLProps } from 'react';
+import { IWidgetBlueprint, WidgetType } from '../interfaces';
 
-export const WidgetHeadingBlueprint = {
+interface IWidgetBox extends HTMLProps<HTMLDivElement> {}
+
+export function WidgetBox(props: IWidgetBox) {
+  return (
+    <div {...props}>
+      {props.children}
+    </div> 
+  )
+}
+
+export const WidgetBoxBlueprint: IWidgetBlueprint = {
   type: WidgetType.BOX,
   name: 'Box',
   attrs: {},
   forEditor: {
-    widgetInnerHTML: '<div></div>'
+    widgetInnerHTML: WidgetBox,
+    props: {
+      canHaveVisibleChildren: true
+    }
   },
   forCodeGen: {}
 };

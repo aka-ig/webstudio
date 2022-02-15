@@ -1,3 +1,5 @@
+import { FunctionComponent } from 'react';
+
 export enum WidgetType {
   PROJECT = 'project',
   WEBSITE = 'website',
@@ -5,8 +7,9 @@ export enum WidgetType {
   PAGEHOLDER = 'pageholder',
   PAGE = 'page',
   HR = 'hr',
-  HEADING = 'heading',
+  HEADINGTAG = 'heading-tag',
   BOX = 'box',
+  IMAGE = 'image',
   NOTEXIST = 'not-exist',
 }
 
@@ -14,6 +17,7 @@ export interface IWidgetBlueprintCommonAttr {
   label: string;
   type: string;
   default: any;
+  options?: any[];
 }
 
 export interface IWidgetBlueprintAttrs {
@@ -24,8 +28,14 @@ export interface IWidgetAttrs {
   [key: string]: any;
 }
 
+export interface IWidgetBlueprintForEditorProps {
+  isNotDeletable?: boolean;
+  canHaveVisibleChildren?: boolean;
+}
+
 export interface IWidgetBlueprintForEditor {
-  widgetInnerHTML: JSX.Element;
+  widgetInnerHTML: FunctionComponent;
+  props: IWidgetBlueprintForEditorProps;
 }
 
 export interface IWidgetBlueprint {

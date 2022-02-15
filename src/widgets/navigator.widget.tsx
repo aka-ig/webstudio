@@ -1,11 +1,25 @@
-import { WidgetType } from "../interfaces";
+import { HTMLProps } from 'react';
+import { IWidgetBlueprint, WidgetType } from '../interfaces';
 
-export const WidgetNavigatorBlueprint = {
+export interface IWidgetNavigatorProps extends HTMLProps<HTMLDivElement> {}
+
+export function WidgetNavigator(props: IWidgetNavigatorProps) {
+  return (
+    <div className={''}>
+      {props.children}
+    </div> 
+  )
+}
+
+export const WidgetNavigatorBlueprint: IWidgetBlueprint = {
   type: WidgetType.NAVIGATOR,
   name: 'Navigator',
   attrs: {},
   forEditor: {
-    widgetInnerHTML: <div></div>
+    widgetInnerHTML: WidgetNavigator,
+    props: {
+      canHaveVisibleChildren: true
+    }
   },
   forCodeGen: {}
 };

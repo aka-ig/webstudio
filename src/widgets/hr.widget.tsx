@@ -1,11 +1,21 @@
-import { WidgetType } from "../interfaces";
+import { HTMLProps } from 'react';
+import { IWidgetBlueprint, WidgetType } from '../interfaces';
 
-export const WidgetHrBlueprint = {
+export function WidgetHR(props: HTMLProps<HTMLHRElement>) {
+  return (
+    <hr {...props} />
+  );
+}
+
+export const WidgetHrBlueprint: IWidgetBlueprint = {
   type: WidgetType.HR,
   name: 'Horizontal Divider Line',
   attrs: {},
   forEditor: {
-    widgetInnerHTML: <hr />
+    widgetInnerHTML: WidgetHR,
+    props: {
+      canHaveVisibleChildren: false
+    }
   },
   forCodeGen: {}
 };

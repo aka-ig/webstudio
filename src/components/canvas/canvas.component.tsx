@@ -21,8 +21,8 @@ export function ComponentCanvas() {
   }
 
   return (
-    <div className='flex-this' >
-      <ComponentWidget widget={editPageContext.website} />
+    <div className='flex-this flex-column'>
+      <ComponentWidget widget={editPageContext.website} className={'flex-this'} />
     </div>
   )
 }

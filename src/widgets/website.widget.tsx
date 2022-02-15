@@ -1,6 +1,17 @@
-import { WidgetType } from "../interfaces";
+import { HTMLProps } from 'react';
+import { IWidgetBlueprint, WidgetType } from '../interfaces';
 
-export const WidgetWebsiteBlueprint = {
+interface IWidgetWebsite extends HTMLProps<HTMLDivElement> {}
+
+export function WidgetWebsite(props: IWidgetWebsite) {
+  return (
+    <div {...props}>
+      {props.children}
+    </div> 
+  )
+}
+
+export const WidgetWebsiteBlueprint: IWidgetBlueprint = {
   type: WidgetType.WEBSITE,
   name: 'Website',
   attrs: {
@@ -11,9 +22,10 @@ export const WidgetWebsiteBlueprint = {
     }
   },
   forEditor: {
-    widgetInnerHTML: <div></div>,
+    widgetInnerHTML: WidgetWebsite,
     props: {
-      isNotDeletable: true
+      isNotDeletable: true,
+      canHaveVisibleChildren: true,
     }
   },
   forCodeGen: {}
