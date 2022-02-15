@@ -1,32 +1,31 @@
-import React, { ChangeEvent, useContext, useEffect, useMemo, useState } from 'react';
-import { IWidget, IWidgetBlueprint } from '../../interfaces';
+import React from 'react';
 import './form-editor-field.component.scss';
+import { ComponentFormEditorRadio } from './form-editor-radio.component';
+import { IComponentFormEditorFieldProps } from './interfaces';
 
-export interface IComponentFormEditorFieldProps {
-  widget: IWidget;
-  attrKey: string;
-  attrValue: any;
-  blueprint: IWidgetBlueprint;
+function getElementByType(type: string) {
+  let inline = false;
+  let element = null;
+  if (type === 'radio') {
+    inline = false;
+    element = ComponentFormEditorRadio;
+  } else if (type === 'radio-inline') {
+    inline = true;
+    element = ComponentFormEditorRadio;
+  } else {
+    inline = false;
+    element = null;
+  }
+  return { inline, element };
 }
 
 export function ComponentFormEditorField(props: IComponentFormEditorFieldProps) {
-
-  const setVersion = useState<number>(0)[1];
-
-  const label = props.blueprint.attrs[props.attrKey].label;
-  const value = props.widget.attrs[props.attrKey];
-
-  function handleChange(e: ChangeEvent<HTMLInputElement>) {
-    props.widget.attrs[props.attrKey] = e.target.value;
-    setVersion(v => ++v);
+  const ElementObj = getElementByType(props.blueprint.attrs[props.attrKey].type);
+  const MyElement = ElementObj.element;
+  if (!MyElement) {
+    return null;
   }
-
-  return (
-    <div className='ws-component-form-editor-field'>
-        <label>{label}</label>
-        <div>
-          <input type='text' value={value} onChange={handleChange} />
-        </div>
-    </div>
+  return ( 
+    <MyElement inline={ElementObj.inline} {...props} />
   );
 }

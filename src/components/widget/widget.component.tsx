@@ -1,6 +1,7 @@
 import React, { DragEvent, FunctionComponent, MouseEvent, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { IWidget, WidgetType } from '../../interfaces';
 import { EditPageContext } from '../../pages/edit/edit.page.context';
+import { widgetAttrService } from '../../pages/edit/edit.page.event';
 import { createWidgetByType, getWidgetBlueprintByType } from '../../services/widget.service';
 
 export interface IComponentWidgetProps {
@@ -13,11 +14,17 @@ export function ComponentWidget(props: IComponentWidgetProps) {
   const widgetInnerRef = useRef<HTMLDivElement>(null);
   const editPageContext = useContext(EditPageContext);
   const [isDragOver, setIsDragOver] = useState<boolean>(false);
-  const [version, setVersion] = useState<number>(0);
+  const setVersion = useState<number>(0)[1];
 
   useEffect(() => {
-    console.log(props.widget);
-  }, [props.widget]);
+    const subscription = widgetAttrService.listen().subscribe((wid) => {
+      if (props.widget.wid === wid) {
+        props.widget.attrs = { ...props.widget.attrs };
+        setVersion(v => ++v);
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, [props.widget, setVersion]);
 
   const widgetBlueprint = useMemo(() => getWidgetBlueprintByType(props.widget.type), [props.widget]);
 
@@ -54,14 +61,14 @@ export function ComponentWidget(props: IComponentWidgetProps) {
 
   const useClassName = useMemo(() => {
     return ['widget widget-' + props.widget.type, editPageContext.selectedWidget === props.widget ? 'selected' : '', props.className].filter(Boolean).join(' ');
-  }, [editPageContext.selectedWidget, props.widget, props.widget.type]);
+  }, [editPageContext.selectedWidget, props.widget, props.className]);
 
   const useWidgetInnerClassName = ['widget-inner', isDragOver ? 'is-drag-over' : ''].filter(Boolean).join(' ');
   const WidgetElement = widgetBlueprint.forEditor.widgetInnerHTML as FunctionComponent;
 
   return (
     <div className={useClassName} onClick={handleClick}>
-      <div className='widget-drawer'></div>
+      <div className='widget-drawer'>{widgetBlueprint.name}</div>
       <div className='binding-drawer'></div>
       <div className={useWidgetInnerClassName} ref={widgetInnerRef} onDragOver={handleDragOver} onDragLeave={handleDragLeave} onDrop={handleOnDrop}>
         {widgetBlueprint.forEditor.props.canHaveVisibleChildren ? (

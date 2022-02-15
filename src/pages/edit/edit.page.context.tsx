@@ -6,6 +6,7 @@ export interface IEditPageContext {
   website: IWidget;
   selectedWidget: IWidget;
   handleSelectedWidgetChange: (widget: IWidget) => void;
+  handleRemoveWidget:(widget: IWidget) => void;
   handleModeChange: (mode: string) => void;
 }
 

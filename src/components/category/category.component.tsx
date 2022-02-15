@@ -21,10 +21,10 @@ export function ComponentCategory() {
     <div className='ws-component-category flex-column'>
       <ul className='nav nav-tabs nav-justified'>
         <li className='nav-item'>
-          <a className={'nav-link' + (currentTabName === TabName.WIDGET ? ' active' : '')} href='#' onClick={(e) => handleSwitchTab(e, TabName.WIDGET)}>Widget</a>
+          <a className={'nav-link' + (currentTabName === TabName.WIDGET ? ' active' : '')} href='/' onClick={(e) => handleSwitchTab(e, TabName.WIDGET)}>Widget</a>
         </li>
         <li className='nav-item'>
-          <a className={'nav-link' + (currentTabName === TabName.PROJECT ? ' active' : '')} href='#' onClick={(e) => handleSwitchTab(e, TabName.PROJECT)}>Project</a>
+          <a className={'nav-link' + (currentTabName === TabName.PROJECT ? ' active' : '')} href='/' onClick={(e) => handleSwitchTab(e, TabName.PROJECT)}>Project</a>
         </li>
       </ul>
       {currentTabName === TabName.WIDGET && <ComponentWidgetList />}

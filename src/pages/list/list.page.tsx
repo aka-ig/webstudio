@@ -8,7 +8,7 @@ import { IProjectInfo } from '../../interfaces';
 export function PageList() {
 
   const history = useHistory();
-  const [filePath, setFilePath] = useState<string>('/');
+  const filePath = useState<string>('/')[0];
   const [projectList, setProjectList] = useState<IProjectInfo[]>([]);
   const [showModal, setShowModal] = useState<boolean>(false);
 

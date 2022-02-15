@@ -25,8 +25,12 @@ export function PageEdit() {
     setmode(mode);
   }
 
-  function handleSelectedWidgetChange(widget: any) {
+  function handleSelectedWidgetChange(widget: IWidget) {
     setSelectedWidget(widget);
+  }
+
+  function handleRemoveWidget(widget: IWidget) {
+
   }
 
   const editPageContextValue: IEditPageContext = {
@@ -34,6 +38,7 @@ export function PageEdit() {
     website,
     selectedWidget,
     handleSelectedWidgetChange,
+    handleRemoveWidget,
     handleModeChange,
   }
 
@@ -41,7 +46,7 @@ export function PageEdit() {
     <div className='ws-page-edit d-flex flex-column'>
       <EditPageContext.Provider value={editPageContextValue}>
         <ComponentHeader mode={mode} />
-        <div className='flex-this flex-row'>
+        <div className='flex-this flex-row' style={{overflow:'hidden'}}>
           <ComponentCategory />
           <ComponentCanvas />
           <ComponentWizard />

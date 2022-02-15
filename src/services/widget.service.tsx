@@ -67,7 +67,7 @@ export function createWidgetByType(widgetType: WidgetType): IWidget {
     name: blueprint.name,
     wid: uuidv4(),
     attrs: attrs,
-    children: []
+    children: [],
   };
 
   return widget;
@@ -76,4 +76,11 @@ export function createWidgetByType(widgetType: WidgetType): IWidget {
 export function renderWidget(widgetType: WidgetType) {
   const blueprint = getWidgetBlueprintByType(widgetType);
   return blueprint.forEditor.widgetInnerHTML;
+}
+
+export function deleteWidget(widget: IWidget) {
+  const blueprint = getWidgetBlueprintByType(widget.type);
+  if(!blueprint.forEditor.props.isNotDeletable) {
+
+  }
 }
