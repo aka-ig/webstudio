@@ -11,6 +11,10 @@ export enum WidgetType {
   BOX = 'box',
   IMAGE = 'image',
   NOTEXIST = 'not-exist',
+  BUTTON = 'button',
+  PARAGRAPH = 'paragraph',
+  TABLE = 'table',
+  LABEL = 'label',
 }
 
 export interface IWidgetBlueprintCommonAttr {

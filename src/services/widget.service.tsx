@@ -11,8 +11,12 @@ import {
   WidgetProjectBlueprint
 } from '../widgets';
 import { WidgetBoxBlueprint } from '../widgets/box.widget';
+import { WidgetButtonBlueprint } from '../widgets/button.widget';
 import { WidgetHeadingTagBlueprint } from '../widgets/heading.widget';
 import { WidgetImageBlueprint } from '../widgets/image.widget';
+import { WidgetLabelBlueprint } from '../widgets/label.widge';
+import { WidgetParagraphBlueprint } from '../widgets/paragraph.widget';
+import { WidgetTableBlueprint } from '../widgets/table.widget';
 
 export function getWidgetByType(widgetType: WidgetType) {
   switch (widgetType) {
@@ -51,6 +55,18 @@ export function getWidgetBlueprintByType(widgetType: WidgetType): IWidgetBluepri
       break;
     case WidgetType.IMAGE:
       blueprint = WidgetImageBlueprint;
+      break;
+    case WidgetType.BUTTON:
+      blueprint = WidgetButtonBlueprint;
+      break;
+    case WidgetType.PARAGRAPH:
+      blueprint = WidgetParagraphBlueprint;
+      break;
+    case WidgetType.TABLE:
+      blueprint = WidgetTableBlueprint;
+      break;
+    case WidgetType.LABEL:
+      blueprint = WidgetLabelBlueprint;
       break;
   }
   return blueprint;

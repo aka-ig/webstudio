@@ -2,30 +2,24 @@ import React, { ChangeEvent, useState } from 'react';
 import './form-editor-field.component.scss';
 import { IComponentFormEditorFieldProps } from './interfaces';
 
-export function ComponentFormEditorRadio(props: IComponentFormEditorFieldProps) {
+export function ComponentFormEditorTextarea(props: IComponentFormEditorFieldProps) {
 
     const setVersion = useState<number>(0)[1];
 
     const label = props.blueprint.attrs[props.attrKey].label;
     const value = props.widget.attrs[props.attrKey];
-    const options = props.blueprint.attrs[props.attrKey].options;
 
-
-    function handleChange(e: ChangeEvent<HTMLInputElement>) {
+    function handleChange(e: ChangeEvent<HTMLTextAreaElement>) {
         props.widget.attrs[props.attrKey] = e.target.value;
         setVersion(v => ++v);
         props.onChange();
     }
 
     return (
-        <div className='ws-component-form-editor-radio'>
+        <div className='ws-component-form-editor-textarea'>
             <label className='form-editor-field-label'>{label}</label>
             <div className='form-editor-field-control'>
-                {options.map(o => (
-                    <label key={o} style={{marginRight: '8px'}}>
-                        <input type='radio' value={o} checked={o === value} onChange={handleChange} /> {o}
-                    </label>
-                ))}
+                <textarea value={value} onChange={handleChange} />
             </div>
         </div>
     );

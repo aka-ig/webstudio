@@ -1,0 +1,7 @@
+.ws-component-drop-spot {
+    height: 15px;
+    background-color: inherit;
+    &.is-drag-over {
+        background-color: lightgreen;
+    }
+}

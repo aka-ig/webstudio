@@ -1,8 +1,9 @@
-import React, { DragEvent, FunctionComponent, MouseEvent, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import React, { DragEvent, Fragment, FunctionComponent, MouseEvent, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { IWidget, WidgetType } from '../../interfaces';
 import { EditPageContext } from '../../pages/edit/edit.page.context';
 import { widgetAttrService } from '../../pages/edit/edit.page.event';
 import { createWidgetByType, getWidgetBlueprintByType } from '../../services/widget.service';
+import { ComponentDropSpot } from '../drop-spot/drop-spot.component';
 
 export interface IComponentWidgetProps {
   widget: IWidget;
@@ -59,6 +60,16 @@ export function ComponentWidget(props: IComponentWidgetProps) {
     }
   }
 
+  function handleDropSpotOnDrop(e: DragEvent<HTMLDivElement>, index: number) {
+    e.stopPropagation();
+    e.preventDefault();
+    const data = e.dataTransfer.getData('text');
+    const newWidget = createWidgetByType(data as WidgetType);
+    props.widget.children.splice(index, 0, newWidget);
+    editPageContext.handleSelectedWidgetChange(newWidget);
+    console.log(data);
+  }
+
   const useClassName = useMemo(() => {
     return ['widget widget-' + props.widget.type, editPageContext.selectedWidget === props.widget ? 'selected' : '', props.className].filter(Boolean).join(' ');
   }, [editPageContext.selectedWidget, props.widget, props.className]);
@@ -72,11 +83,17 @@ export function ComponentWidget(props: IComponentWidgetProps) {
       <div className='binding-drawer'></div>
       <div className={useWidgetInnerClassName} ref={widgetInnerRef} onDragOver={handleDragOver} onDragLeave={handleDragLeave} onDrop={handleOnDrop}>
         {widgetBlueprint.forEditor.props.canHaveVisibleChildren ? (
-          <WidgetElement {...props.widget.attrs}>
-            {props.widget.children.map(childWidget => (
-              <ComponentWidget key={childWidget.wid} widget={childWidget} />
-            ))}
-          </WidgetElement>
+          <Fragment>
+            {props.widget.children.length > 0 && <ComponentDropSpot onDrop={handleDropSpotOnDrop} index={0} />}
+            <WidgetElement {...props.widget.attrs}>
+              {props.widget.children.map((childWidget, idx) => (
+                <Fragment key={childWidget.wid} >
+                  <ComponentWidget widget={childWidget} />
+                  <ComponentDropSpot onDrop={handleDropSpotOnDrop} index={idx + 1} />
+                </Fragment>
+              ))}
+            </WidgetElement>
+          </Fragment>
         ) : (
           <WidgetElement {...props.widget.attrs} />
         )}

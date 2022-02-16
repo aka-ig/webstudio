@@ -2,7 +2,7 @@ import React, { ChangeEvent, useState } from 'react';
 import './form-editor-field.component.scss';
 import { IComponentFormEditorFieldProps } from './interfaces';
 
-export function ComponentFormEditorRadio(props: IComponentFormEditorFieldProps) {
+export function ComponentFormEditorSelect(props: IComponentFormEditorFieldProps) {
 
     const setVersion = useState<number>(0)[1];
 
@@ -11,21 +11,21 @@ export function ComponentFormEditorRadio(props: IComponentFormEditorFieldProps) 
     const options = props.blueprint.attrs[props.attrKey].options;
 
 
-    function handleChange(e: ChangeEvent<HTMLInputElement>) {
+    function handleChange(e: ChangeEvent<HTMLSelectElement>) {
         props.widget.attrs[props.attrKey] = e.target.value;
         setVersion(v => ++v);
         props.onChange();
     }
 
     return (
-        <div className='ws-component-form-editor-radio'>
+        <div className='ws-component-form-editor-select'>
             <label className='form-editor-field-label'>{label}</label>
             <div className='form-editor-field-control'>
-                {options.map(o => (
-                    <label key={o} style={{marginRight: '8px'}}>
-                        <input type='radio' value={o} checked={o === value} onChange={handleChange} /> {o}
-                    </label>
-                ))}
+                <select value={value} onChange={handleChange}>
+                    {options.map(o => (
+                        <option key={o} value={o} label={o}></option>
+                    ))}
+                </select>
             </div>
         </div>
     );

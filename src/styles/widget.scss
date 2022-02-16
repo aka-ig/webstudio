@@ -2,13 +2,13 @@
   border: 1px dashed #ddd;
   border-top: none;
   background-color: white;
-  margin: 5px;
+  // margin: 5px;
   &:hover {
     box-shadow: 3px 3px 8px 0 rgba(50, 50, 50, 0.4);
   }
   &.selected {
     border: 1px solid rgb(25, 118, 210);;
-    background-color: rgba(0, 100, 255, 0.04);
+    background-color: rgb(240, 240, 240);
     & > .widget-drawer {
       background-color: rgb(25, 118, 210);
     }
@@ -29,7 +29,8 @@
   }
 }
 .widget-inner {
-  padding: 5px;
+  padding: 0 5px;
+  overflow-y: auto;
   // height: 100%;
   &.is-drag-over {
     background-color: lightgreen;

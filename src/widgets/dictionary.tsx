@@ -10,11 +10,11 @@ export interface IWidgetDictionaryItem {
 
 export const WidgetDictionary: IWidgetDictionaryItem[] = [
   { name: WidgetType.HEADINGTAG, label: 'Heading', icon: faHeading },
-  { name: 'text-block', label: 'Text Block', icon: faParagraph },
+  { name: WidgetType.PARAGRAPH, label: 'Text Block', icon: faParagraph },
   { name: WidgetType.HR, label: 'Horizontal Divider Line', icon: faMinus },
   { name: WidgetType.IMAGE, label: 'Image', icon: faImage },
   { name: WidgetType.BOX, label: 'Box', icon: faSquare },
-  { name: 'button', label: 'Button', icon: faPlayCircle },
-  { name: 'label', label: 'Label', icon: faTag },
-  { name: 'table', label: 'Table', icon: faTable }
+  { name: WidgetType.BUTTON, label: 'Button', icon: faPlayCircle },
+  { name: WidgetType.LABEL, label: 'Label', icon: faTag },
+  { name: WidgetType.TABLE, label: 'Table', icon: faTable }
 ];
