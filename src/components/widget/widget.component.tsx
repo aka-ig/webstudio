@@ -74,7 +74,11 @@ export function ComponentWidget(props: IComponentWidgetProps) {
     return ['widget widget-' + props.widget.type, editPageContext.selectedWidget === props.widget ? 'selected' : '', props.className].filter(Boolean).join(' ');
   }, [editPageContext.selectedWidget, props.widget, props.className]);
 
-  const useWidgetInnerClassName = ['widget-inner', isDragOver ? 'is-drag-over' : ''].filter(Boolean).join(' ');
+  const useWidgetInnerClassName = [
+    'widget-inner',
+    isDragOver ? 'is-drag-over' : '',
+    widgetBlueprint.forEditor.props.canHaveVisibleChildren ? '' : 'no-visible-children'
+  ].filter(Boolean).join(' ');
   const WidgetElement = widgetBlueprint.forEditor.widgetInnerHTML as FunctionComponent;
 
   return (

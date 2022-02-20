@@ -31,9 +31,13 @@
 .widget-inner {
   padding: 0 5px;
   overflow-y: auto;
+  min-height: 20px;
   // height: 100%;
   &.is-drag-over {
     background-color: lightgreen;
+  }
+  &.no-visible-children {
+    padding: 0;;
   }
 }
 
