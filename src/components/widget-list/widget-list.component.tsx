@@ -9,7 +9,11 @@ export function ComponentWidgetList() {
   const [searchText, setsearchText] = useState('');
 
   function handleDragStart(event: React.DragEvent<HTMLDivElement>, widget: IWidgetDictionaryItem) {
-    event.dataTransfer.setData('text', widget.name);
+    const transferDataObj = {
+      type: 'create',
+      widgetType: widget.name
+    };
+    event.dataTransfer.setData('text', JSON.stringify(transferDataObj));
   }
 
   return (

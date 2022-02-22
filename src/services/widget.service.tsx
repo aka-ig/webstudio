@@ -84,6 +84,7 @@ export function createWidgetByType(widgetType: WidgetType): IWidget {
     wid: uuidv4(),
     attrs: attrs,
     children: [],
+    parent: null,
   };
 
   return widget;
@@ -96,7 +97,19 @@ export function renderWidget(widgetType: WidgetType) {
 
 export function deleteWidget(widget: IWidget) {
   const blueprint = getWidgetBlueprintByType(widget.type);
-  if(!blueprint.forEditor.props.isNotDeletable) {
+  if (!blueprint.forEditor.props.isNotDeletable) {
 
   }
+}
+
+export function getWidgetById(project: IWidget, widgetId: string) {
+  const stack = [project];
+  while (stack.length > 0) {
+    let cur = stack.pop();
+    if (cur.wid === widgetId) {
+      return cur;
+    }
+    cur.children.forEach(w => stack.push(w));
+  }
+  return null;
 }

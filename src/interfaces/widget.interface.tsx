@@ -34,6 +34,7 @@ export interface IWidgetAttrs {
 
 export interface IWidgetBlueprintForEditorProps {
   isNotDeletable?: boolean;
+  isNotDraggable?: boolean;
   canHaveVisibleChildren?: boolean;
 }
 
@@ -56,4 +57,5 @@ export interface IWidget {
   wid: string;
   attrs: IWidgetAttrs;
   children: IWidget[];
+  parent: IWidget;
 }

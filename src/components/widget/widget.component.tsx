@@ -1,8 +1,8 @@
 import React, { DragEvent, Fragment, FunctionComponent, MouseEvent, useContext, useEffect, useMemo, useRef, useState } from 'react';
-import { IWidget, WidgetType } from '../../interfaces';
+import { IWidget } from '../../interfaces';
 import { EditPageContext } from '../../pages/edit/edit.page.context';
 import { widgetAttrService } from '../../pages/edit/edit.page.event';
-import { createWidgetByType, getWidgetBlueprintByType } from '../../services/widget.service';
+import { getWidgetBlueprintByType } from '../../services/widget.service';
 import { ComponentDropSpot } from '../drop-spot/drop-spot.component';
 
 export interface IComponentWidgetProps {
@@ -51,23 +51,39 @@ export function ComponentWidget(props: IComponentWidgetProps) {
     e.stopPropagation();
     e.preventDefault();
     if (widgetBlueprint.forEditor.props.canHaveVisibleChildren) {
-      const data = e.dataTransfer.getData('text');
-      const newWidget = createWidgetByType(data as WidgetType);
-      props.widget.children.push(newWidget);
-      editPageContext.handleSelectedWidgetChange(newWidget);
+      const dataString = e.dataTransfer.getData('text');
+      const transferDataObj = JSON.parse(dataString);
+      const actionType = transferDataObj.type;
+      if (actionType === 'create') {
+        editPageContext.handleCreateWidget(transferDataObj.widgetType, props.widget, props.widget.children.length);
+      } else if (actionType === 'reorder') {
+        editPageContext.handleReorderWidget(transferDataObj.widgetId, props.widget, props.widget.children.length);
+      }
       setIsDragOver(false);
-      console.log(data);
     }
   }
 
   function handleDropSpotOnDrop(e: DragEvent<HTMLDivElement>, index: number) {
     e.stopPropagation();
     e.preventDefault();
-    const data = e.dataTransfer.getData('text');
-    const newWidget = createWidgetByType(data as WidgetType);
-    props.widget.children.splice(index, 0, newWidget);
-    editPageContext.handleSelectedWidgetChange(newWidget);
-    console.log(data);
+    const dataString = e.dataTransfer.getData('text');
+    const transferDataObj = JSON.parse(dataString);
+    const actionType = transferDataObj.type;
+    if (actionType === 'create') {
+      editPageContext.handleCreateWidget(transferDataObj.widgetType, props.widget, index);
+    } else if (actionType === 'reorder') {
+      editPageContext.handleReorderWidget(transferDataObj.widgetId, props.widget, index);
+    }
+  }
+
+  function handleDragStart(e: DragEvent<HTMLDivElement>) {
+    e.stopPropagation();
+    const transferDataObj = {
+      type: 'reorder',
+      widgetId: props.widget.wid
+    };
+    console.log(transferDataObj);
+    e.dataTransfer.setData('text', JSON.stringify(transferDataObj));
   }
 
   const useClassName = useMemo(() => {
@@ -82,7 +98,7 @@ export function ComponentWidget(props: IComponentWidgetProps) {
   const WidgetElement = widgetBlueprint.forEditor.widgetInnerHTML as FunctionComponent;
 
   return (
-    <div className={useClassName} onClick={handleClick}>
+    <div className={useClassName} onClick={handleClick} draggable={!widgetBlueprint.forEditor.props.isNotDraggable} onDragStart={handleDragStart} onDragOver={e => e.stopPropagation()}>
       <div className='widget-drawer'>{widgetBlueprint.name}</div>
       <div className='binding-drawer'></div>
       <div className={useWidgetInnerClassName} ref={widgetInnerRef} onDragOver={handleDragOver} onDragLeave={handleDragLeave} onDrop={handleOnDrop}>

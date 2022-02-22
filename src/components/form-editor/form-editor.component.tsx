@@ -12,7 +12,6 @@ import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 import { ComponentFormEditorField } from '../form-editor-field/form-editor-field.component';
 import { widgetAttrService } from '../../pages/edit/edit.page.event';
 
-
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     modal: {
@@ -50,6 +49,7 @@ export function ComponentFormEditor() {
   };
 
   function handleRemoveWidget(e: MouseEvent<HTMLOrSVGElement>) {
+    editPageContext.handleRemoveWidget(currentSelectedWidget);
     setOpen(false);
   }
 
@@ -62,8 +62,8 @@ export function ComponentFormEditor() {
   return (
     <div className='ws-component-form-editor flex-this'>
       <div className='form-header flex-row'>
-        <label className='flex-this' style={{fontWeight: 'bold'}}>{widgetName}</label>
-        <FontAwesomeIcon className='widget-icon' icon={faTrashAlt} onClick={handleOpen} />
+        <label className='flex-this' style={{ fontWeight: 'bold' }}>{widgetName}</label>
+        {!widgetBlueprint.forEditor.props.isNotDeletable && <FontAwesomeIcon className='widget-icon' icon={faTrashAlt} onClick={handleOpen} />}
       </div>
       <Modal
         aria-labelledby="transition-modal-title"
@@ -87,7 +87,7 @@ export function ComponentFormEditor() {
           </div>
         </Fade>
       </Modal>
-      <div style={{fontSize: '14px'}}>
+      <div style={{ fontSize: '14px' }}>
         {Object.keys(widgetAttrs).map(attrKey => (
           <ComponentFormEditorField onChange={handleAttrValueChange} key={attrKey} widget={currentSelectedWidget} attrKey={attrKey} attrValue={widgetAttrs[attrKey]} blueprint={widgetBlueprint} />
         ))}

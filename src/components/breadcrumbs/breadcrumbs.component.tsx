@@ -5,33 +5,20 @@ import Link from '@material-ui/core/Link';
 import { EditPageContext } from '../../pages/edit/edit.page.context';
 import { IWidget } from '../../interfaces';
 
-function recur(targetNode: IWidget, node: IWidget, temp: IWidget[], result: Array<IWidget[]>) {
-  temp.push(node);
-  if (node === targetNode) {
-    result.push([...temp]);
-    return;
-  }
-  node.children.forEach(child => {
-    recur(targetNode, child, temp, result);
-  });
-  temp.pop();
-}
-
 export function ComponentBreadcrumbs() {
 
   const editPageContext = useContext(EditPageContext);
   const [paths, setPaths] = useState<IWidget[]>([]);
 
   useEffect(() => {
-    const nextPathArray: Array<IWidget[]> = [];
-    const temp: IWidget[] = [];
-    if (editPageContext.selectedWidget) {
-      recur(editPageContext.selectedWidget, editPageContext.project, temp, nextPathArray);
-      setPaths(nextPathArray[0] || []);
-    } else {
-      setPaths([]);
+    const nextPathArray: IWidget[] = [];
+    let temp = editPageContext.selectedWidget;
+    while (temp) {
+      nextPathArray.unshift(temp);
+      temp = temp.parent;
     }
-  }, [editPageContext.selectedWidget, editPageContext.project]);
+    setPaths(nextPathArray);
+  }, [editPageContext.selectedWidget]);
 
   function handleClick(event: MouseEvent<HTMLSpanElement>, widget: IWidget) {
     event.preventDefault();
